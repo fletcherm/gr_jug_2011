@@ -2,7 +2,7 @@
 # Ruby for Desktop Applications? Yes we can. #
 
 !SLIDE
-## (from Mike Karlesky) ##
+## (credit Mike Karlesky) ##
 
 !SLIDE center
 # Matt Fletcher #
@@ -151,3 +151,114 @@
 
 !SLIDE
 # Presenter First #
+
+!SLIDE center
+![mvp](mvp.jpg)
+
+!SLIDE
+# Write Presenter tests first to define view & model behavior #
+
+!SLIDE
+# Just say 'When' #
+
+!SLIDE
+    @@@ Ruby
+    describe Ui::PlayPresenter do
+      before do
+        create_mocks(:view, :model)
+
+        @play = @view.trap.when :play_clicked
+        @pause = @view.trap.when :pause_clicked
+
+        Ui::PlayPresenter.new(@model, @view)
+      end
+    end
+
+!SLIDE
+    @@@ Ruby
+    it 'pauses the sim when Pause is clicked' do
+      @model.expects.pause
+      @view.expects.hide_play
+      @view.expects.show_pause
+      @pause.trigger
+    end
+
+!SLIDE
+    @@@ Ruby
+    class PlayPresenter
+      constructor :model, :view
+      
+      def setup
+        @view.when :pause do
+          @model.pause
+          @view.hide_play
+          @view.show_pause
+        end
+      end
+    end
+
+!SLIDE
+    @@@ Ruby
+    it 'starts the sim when Play is clicked' do
+      @model.expects.paused?.returns false
+      @model.expects.play
+      @play.trigger
+    end
+
+!SLIDE
+    @@@ Ruby
+    it 'resumes the sim when Play
+        is clicked after a Pause' do
+      @model.expects.paused?.returns true
+      @model.expects.resume
+      @play.trigger
+    end
+
+!SLIDE
+    @@@ Ruby
+    class PlayPresenter
+      constructor :model, :view
+      
+      def setup
+        @view.when :play_clicked do
+          if @model.paused?
+            @model.resume
+          else
+            @model.play
+          end
+        end
+      end
+    end
+
+!SLIDE
+# Presenters tend to have simple, targetted tests and behavior #
+
+!SLIDE
+# Heavier behavior defined in models #
+
+!SLIDE
+# Views are thin walls around untestable code #
+
+!SLIDE bullets incremental
+## Usually GUI components, but could be anything hard to test ##
+* hardware registers and ports
+* Android activities & utilities
+* things without interfaces (java)
+* complex third-party api
+
+!SLIDE
+# 26, 29 MVP triples in each app #
+
+!SLIDE bullets
+# Resources #
+* [Atomic Object](http://www.atomicobject.com)
+* [Presenter First](http://www.atomicobject.com/pages/Presenter+First)
+* [JRuby](http:///www.jruby.org)
+
+!SLIDE bullets
+# Resources #
+* [Ruby for Desktop Applications? Yes we can.](http://spin.atomicobject.com/2009/01/30/ruby-for-desktop-applications-yes-we-can)
+* [Desktop Application Development in JRuby](http://spin.atomicobject.com/2007/11/12/desktop-application-development-in-jruby)
+* [Rolling a JRuby desktop application](http://spin.atomicobject.com/2008/07/02/rolling-a-jruby-desktop-application)
+* [Running a Ruby application with jruby-complete](http://spin.atomicobject.com/2010/02/01/running-a-ruby-application-with-jruby-complete)
+* [Presenter First in GTK and C](http://spin.atomicobject.com/2010/07/13/presenter-first-in-gtk-and-c)
