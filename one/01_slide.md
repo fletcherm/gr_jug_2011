@@ -101,3 +101,53 @@
         @table_model.clear
       end
     end
+
+!SLIDE
+# RSpec for testing #
+## 2120 unit tests ##
+## 286 system tests ##
+
+!SLIDE bullets incremental
+# Core libs #
+* Hardmock - mocking library (retired)
+* Constructor - object construction
+* DIY - dependency injection
+
+!SLIDE
+# Substance - look and feel #
+
+!SLIDE
+# Apache Batik - SVG #
+
+!SLIDE
+# Java scenegraph #
+
+!SLIDE
+# JFreeChart #
+
+!SLIDE
+# Beta distribution #
+
+!SLIDE
+# Bouncy Castle - encryption #
+
+!SLIDE
+# YAML - configuration #
+
+!SLIDE
+# NSIS - Windows installer #
+
+!SLIDE
+# Launch4J - Windows Java app launcher #
+
+!SLIDE
+# .app bundle on Mac #
+
+!SLIDE
+# shell script on Linux #
+
+!SLIDE
+# Development #
+
+!SLIDE
+# Presenter First #
