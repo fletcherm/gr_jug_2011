@@ -48,7 +48,7 @@
 
       def capital_investment
         @config["capital_investment"].present?
-          ? @configuration["capital_investment"]
+          ? @config["capital_investment"]
           : 0
       end
     end
