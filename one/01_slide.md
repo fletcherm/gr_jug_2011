@@ -1,5 +1,5 @@
 !SLIDE 
-# Ruby for Desktop Applications? Yes we can. #
+# Ruby for desktop applications? Yes we can. #
 
 !SLIDE
 ## (credit Mike Karlesky) ##
