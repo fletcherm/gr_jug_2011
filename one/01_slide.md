@@ -40,10 +40,12 @@
 ## Write Ruby ##
     @@@ Ruby
     class ConfigurationFacade
-      constructor :config
+      def initialize
+        @config = ...
+      end
 
-      def method_missing(key, *args, &block)
-        @config[key.to_s]
+      def method_missing(name, *args, &block)
+        @config[name.to_s]
       end
 
       def capital_investment
@@ -180,7 +182,10 @@
       @model.expects.pause
       @view.expects.hide_play
       @view.expects.show_pause
+
       @pause.trigger
+
+      verify_mocks
     end
 
 !SLIDE
@@ -202,7 +207,10 @@
     it 'starts the sim when Play is clicked' do
       @model.expects.paused?.returns false
       @model.expects.play
+
       @play.trigger
+
+      verify_mocks
     end
 
 !SLIDE
@@ -211,7 +219,10 @@
         is clicked after a Pause' do
       @model.expects.paused?.returns true
       @model.expects.resume
+
       @play.trigger
+
+      verify_mocks
     end
 
 !SLIDE
