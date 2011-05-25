@@ -165,6 +165,22 @@
 
 !SLIDE
     @@@ Ruby
+    class PlayPresenter
+      constructor :model, :view
+      
+      def setup
+        @view.when :play_clicked do
+          if @model.paused?
+            @model.resume
+          else
+            @model.play
+          end
+        end
+      end
+    end
+
+!SLIDE
+    @@@ Ruby
     describe Ui::PlayPresenter do
       before do
         create_mocks(:view, :model)
