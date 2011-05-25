@@ -1,5 +1,6 @@
 !SLIDE 
 # Ruby for desktop applications? Yes we can. #
+## [http://fletcherm.github.com/gr\_jug\_2011](http://fletcherm.github.com/gr_jug_2011) ##
 
 !SLIDE
 ## (credit Mike Karlesky) ##
@@ -278,6 +279,7 @@
 
 !SLIDE bullets
 # Resources #
+* [http://fletcherm.github.com/gr\_jug\_2011](http://fletcherm.github.com/gr_jug_2011)
 * [Atomic Object](http://www.atomicobject.com)
 * [Presenter First](http://www.atomicobject.com/pages/Presenter+First)
 * [JRuby](http:///www.jruby.org)
