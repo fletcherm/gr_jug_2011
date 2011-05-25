@@ -207,6 +207,12 @@ end</code></pre></div>
   constructor :model, :view
 
   def setup
+    @view.when :pause_clicked do
+      @model.pause
+      @view.hide_play
+      @view.show_pause
+    end
+
     @view.when :play_clicked do
       if @model.paused?
         @model.resume
@@ -238,18 +244,6 @@ end</code></pre></div>
   verify_mocks
 end</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/39">
-<pre class="sh_Ruby"><code>class PlayPresenter
-  constructor :model, :view
-
-  def setup
-    @view.when :pause do
-      @model.pause
-      @view.hide_play
-      @view.show_pause
-    end
-  end
-end</code></pre></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/40">
 <pre class="sh_Ruby"><code>it 'starts the sim when Play is clicked' do
   @model.expects.paused?.returns false
   @model.expects.play
@@ -258,7 +252,7 @@ end</code></pre></div>
 
   verify_mocks
 end</code></pre></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/41">
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/40">
 <pre class="sh_Ruby"><code>it 'resumes the sim when Play
     is clicked after a Pause' do
   @model.expects.paused?.returns true
@@ -268,11 +262,17 @@ end</code></pre></div>
 
   verify_mocks
 end</code></pre></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/42">
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/41">
 <pre class="sh_Ruby"><code>class PlayPresenter
   constructor :model, :view
 
   def setup
+    @view.when :pause_clicked do
+      @model.pause
+      @view.hide_play
+      @view.show_pause
+    end
+
     @view.when :play_clicked do
       if @model.paused?
         @model.resume
@@ -282,13 +282,13 @@ end</code></pre></div>
     end
   end
 end</code></pre></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/43">
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/42">
 <h1>Presenters tend to have simple, targetted tests and behavior</h1></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/44">
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/43">
 <h1>Heavier behavior defined in models</h1></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/45">
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/44">
 <h1>Views are thin walls around untestable code</h1></div>
-</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="one/01_slide/46">
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="one/01_slide/45">
 <h2>Usually GUI components, but could be anything hard to test</h2>
 
 <ul>
@@ -298,9 +298,9 @@ end</code></pre></div>
 <li>complex third-party api</li>
 </ul>
 </div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/47">
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/46">
 <h1>26, 29 MVP triples in each app</h1></div>
-</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/48">
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/47">
 <h1>Resources</h1>
 
 <ul>
@@ -310,7 +310,7 @@ end</code></pre></div>
 <li><a href="http:///www.jruby.org">JRuby</a></li>
 </ul>
 </div>
-</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/49">
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/48">
 <h1>Resources</h1>
 
 <ul>
