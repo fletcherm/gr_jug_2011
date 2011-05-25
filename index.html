@@ -65,7 +65,9 @@
 
 <div id="slides" class="offscreen" style="display:none;">
 <div class="slide" data-transition="none"><div class="content" ref="one/01_slide/1">
-<h1>Ruby for desktop applications? Yes we can.</h1></div>
+<h1>Ruby for desktop applications? Yes we can.</h1>
+
+<h2><a href="http://fletcherm.github.com/gr_jug_2011">http://fletcherm.github.com/gr_jug_2011</a></h2></div>
 </div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/2">
 <h2>(credit Mike Karlesky)</h2></div>
 </div><div class="slide" data-transition="none"><div class="content center" ref="one/01_slide/3">
@@ -201,58 +203,6 @@ end</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/35">
 <h1>Just say 'When'</h1></div>
 </div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/36">
-<pre class="sh_Ruby"><code>describe Ui::PlayPresenter do
-  before do
-    create_mocks(:view, :model)
-
-    @play = @view.trap.when :play_clicked
-    @pause = @view.trap.when :pause_clicked
-
-    Ui::PlayPresenter.new(@model, @view)
-  end
-end</code></pre></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/37">
-<pre class="sh_Ruby"><code>it 'pauses the sim when Pause is clicked' do
-  @model.expects.pause
-  @view.expects.hide_play
-  @view.expects.show_pause
-
-  @pause.trigger
-
-  verify_mocks
-end</code></pre></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/38">
-<pre class="sh_Ruby"><code>class PlayPresenter
-  constructor :model, :view
-
-  def setup
-    @view.when :pause do
-      @model.pause
-      @view.hide_play
-      @view.show_pause
-    end
-  end
-end</code></pre></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/39">
-<pre class="sh_Ruby"><code>it 'starts the sim when Play is clicked' do
-  @model.expects.paused?.returns false
-  @model.expects.play
-
-  @play.trigger
-
-  verify_mocks
-end</code></pre></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/40">
-<pre class="sh_Ruby"><code>it 'resumes the sim when Play
-    is clicked after a Pause' do
-  @model.expects.paused?.returns true
-  @model.expects.resume
-
-  @play.trigger
-
-  verify_mocks
-end</code></pre></div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/41">
 <pre class="sh_Ruby"><code>class PlayPresenter
   constructor :model, :view
 
@@ -266,13 +216,79 @@ end</code></pre></div>
     end
   end
 end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/37">
+<pre class="sh_Ruby"><code>describe Ui::PlayPresenter do
+  before do
+    create_mocks(:view, :model)
+
+    @play = @view.trap.when :play_clicked
+    @pause = @view.trap.when :pause_clicked
+
+    Ui::PlayPresenter.new(@model, @view)
+  end
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/38">
+<pre class="sh_Ruby"><code>it 'pauses the sim when Pause is clicked' do
+  @model.expects.pause
+  @view.expects.hide_play
+  @view.expects.show_pause
+
+  @pause.trigger
+
+  verify_mocks
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/39">
+<pre class="sh_Ruby"><code>class PlayPresenter
+  constructor :model, :view
+
+  def setup
+    @view.when :pause do
+      @model.pause
+      @view.hide_play
+      @view.show_pause
+    end
+  end
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/40">
+<pre class="sh_Ruby"><code>it 'starts the sim when Play is clicked' do
+  @model.expects.paused?.returns false
+  @model.expects.play
+
+  @play.trigger
+
+  verify_mocks
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/41">
+<pre class="sh_Ruby"><code>it 'resumes the sim when Play
+    is clicked after a Pause' do
+  @model.expects.paused?.returns true
+  @model.expects.resume
+
+  @play.trigger
+
+  verify_mocks
+end</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/42">
-<h1>Presenters tend to have simple, targetted tests and behavior</h1></div>
+<pre class="sh_Ruby"><code>class PlayPresenter
+  constructor :model, :view
+
+  def setup
+    @view.when :play_clicked do
+      if @model.paused?
+        @model.resume
+      else
+        @model.play
+      end
+    end
+  end
+end</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/43">
-<h1>Heavier behavior defined in models</h1></div>
+<h1>Presenters tend to have simple, targetted tests and behavior</h1></div>
 </div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/44">
+<h1>Heavier behavior defined in models</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/45">
 <h1>Views are thin walls around untestable code</h1></div>
-</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="one/01_slide/45">
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="one/01_slide/46">
 <h2>Usually GUI components, but could be anything hard to test</h2>
 
 <ul>
@@ -282,18 +298,19 @@ end</code></pre></div>
 <li>complex third-party api</li>
 </ul>
 </div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/46">
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/47">
 <h1>26, 29 MVP triples in each app</h1></div>
-</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/47">
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/48">
 <h1>Resources</h1>
 
 <ul>
+<li><a href="http://fletcherm.github.com/gr_jug_2011">http://fletcherm.github.com/gr_jug_2011</a></li>
 <li><a href="http://www.atomicobject.com">Atomic Object</a></li>
 <li><a href="http://www.atomicobject.com/pages/Presenter+First">Presenter First</a></li>
 <li><a href="http:///www.jruby.org">JRuby</a></li>
 </ul>
 </div>
-</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/48">
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/49">
 <h1>Resources</h1>
 
 <ul>
