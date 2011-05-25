@@ -170,6 +170,12 @@
       constructor :model, :view
       
       def setup
+        @view.when :pause_clicked do
+          @model.pause
+          @view.hide_play
+          @view.show_pause
+        end
+
         @view.when :play_clicked do
           if @model.paused?
             @model.resume
@@ -207,20 +213,6 @@
 
 !SLIDE
     @@@ Ruby
-    class PlayPresenter
-      constructor :model, :view
-      
-      def setup
-        @view.when :pause do
-          @model.pause
-          @view.hide_play
-          @view.show_pause
-        end
-      end
-    end
-
-!SLIDE
-    @@@ Ruby
     it 'starts the sim when Play is clicked' do
       @model.expects.paused?.returns false
       @model.expects.play
@@ -248,6 +240,12 @@
       constructor :model, :view
       
       def setup
+        @view.when :pause_clicked do
+          @model.pause
+          @view.hide_play
+          @view.show_pause
+        end
+
         @view.when :play_clicked do
           if @model.paused?
             @model.resume
